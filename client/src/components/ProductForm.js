@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
 //import AllProducts from '../components/AllProducts'
 
 const ProductForm = (props) => {
@@ -7,7 +8,7 @@ const ProductForm = (props) => {
     const [price,setPrice]= useState(0);
     const [description,setDescription] = useState("");
     const [products,setProducts] = useState([]);
-
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -18,13 +19,16 @@ const ProductForm = (props) => {
         }
 
         axios.post('http://localhost:8000/api/products/create',newProduct)
-            .then(res=>setProducts([...products,res.data]))
+            .then(res=>{
+                setProducts([...products,res.data])
+                navigate('/')
+            })
             .catch(err=> console.log(err));
 
     }
 
     return(
-        <div>
+        <div className='d-flex justify-content-center'>
             <form onSubmit={handleSubmit}>
                 <h1>Product Manager</h1>
                 <div>

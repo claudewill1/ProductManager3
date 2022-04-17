@@ -5,5 +5,5 @@ module.exports = (app) => {
     app.post('/api/products/create',ProductController.createNewProduct)
     app.get('/api/products/:id',ProductController.findOneProduct)
     app.delete('/api/products/:id',ProductController.deleteOneProduct)
-    app.put('/api/products/:id',ProductController.updateOneProduct)
+    app.put('/api/products/:id/edit',ProductController.updateOneProduct)
 }
