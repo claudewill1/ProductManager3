@@ -7,7 +7,7 @@ const EditProduct = () => {
     const [title,setTitle] = useState("");
     const [price,setPrice] = useState("");
     const [description,setDescription] = useState("");
-
+    const [errors,setErrors] = useState({});
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/products/${id}`)
         .then((res) => {
@@ -32,7 +32,10 @@ const EditProduct = () => {
             console.log(res)
             navigate("/");
         })
-        .catch((err)=> console.log(err));
+        .catch((err)=> {
+            console.log(err.response)
+            setErrors(err.response.data.errors);
+        });
     };
 
     return (
@@ -65,6 +68,9 @@ const EditProduct = () => {
                 />
             </div>
             <input className='btn btn-primary' type='submit' value='Submit'/>
+            {errors && Object.keys(errors).map((errKey,index)=>{
+                        return <p style={{color:"red"}} key={index}>{errors[errKey].message}</p>
+                    })}
         </form>
     );
 };

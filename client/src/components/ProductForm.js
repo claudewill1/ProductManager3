@@ -8,6 +8,7 @@ const ProductForm = (props) => {
     const [price,setPrice]= useState(0);
     const [description,setDescription] = useState("");
     const [products,setProducts] = useState([]);
+    const [errors,setErrors] = useState({});
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,7 +24,10 @@ const ProductForm = (props) => {
                 setProducts([...products,res.data])
                 navigate('/')
             })
-            .catch(err=> console.log(err));
+            .catch(err=> {
+                console.log(err.response);
+                setErrors(err.response.data.errors);
+            });
 
     }
 
@@ -44,6 +48,9 @@ const ProductForm = (props) => {
                     <input onChange={(e)=> setDescription(e.target.value)} type="text"/>
                 </div>
                 <input type="submit" value="Create" />
+                {errors && Object.keys(errors).map((errKey,index)=>{
+                        return <p style={{color:"red"}} key={index}>{errors[errKey].message}</p>
+                    })}
             </form>
             
         </div>
