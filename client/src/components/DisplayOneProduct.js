@@ -30,7 +30,7 @@ const DisplayOneProduct = () => {
             <h1>{product.title}</h1>
             <p>Price: {product.price}</p>
             <p>Description: {product.description}</p> 
-            <button className='btn btn-danger' onClick={()=>handleDeleteProduct(product.id)}>DELETE</button>
+            <button className='btn btn-danger' onClick={()=>handleDeleteProduct(id)}>DELETE</button>
         </div>
     )
 }
